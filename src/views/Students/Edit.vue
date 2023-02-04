@@ -54,14 +54,13 @@ export default {
         }
     },
     mounted() {
-        //console.log(this.$route.params.id)
         this.id = this.$route.params.id;
         this.getStudentData(this.$route.params.id);
     },
     methods: {
         getStudentData(id) {
             axios.get(`http://127.0.0.1:8000/api/students/${id}/edit`).then(res => {
-                console.log(res.data)
+                //console.log(res.data)
                 this.model.student = res.data
             }).catch(function (error) {
                 if (error.response) {
@@ -74,7 +73,7 @@ export default {
         updateStudent() {
             var mythis = this;
             axios.put(`http://127.0.0.1:8000/api/students/${this.id}/edit`, this.model.student).then(res => {
-                console.log(res.data)
+                //console.log(res.data)
                 alert(res.data.message)
                 this.errorList = ''
             }).catch(function (error) {

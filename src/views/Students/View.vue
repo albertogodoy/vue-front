@@ -28,7 +28,7 @@
                             <td>{{ student.phone }}</td>
                             <td>
                                 <RouterLink :to="{path:`/students/${student.id}/edit`}" class="btn btn-success">Edit</RouterLink>
-                                <button type="button" class="btn btn-danger float-end">Delete</button>
+                                <button type="button" @click="deleteStudent(student.id)" class="btn btn-danger float-end">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -51,19 +51,29 @@ export default {
     name: 'students',
     data() {
         return {
+            id: '',
             students: []
         }
     },
+    // Inicializador
     mounted() {
         this.getStudents();
     },
     methods: {
+        // funcion para obtener registros en BD
         getStudents() {
             axios.get('http://127.0.0.1:8000/api/students').then(res => {
                 this.students = res.data.students
                 //console.log(this.students)
             });
-        }
+        },
+        // Funcion para eliminar registro
+        deleteStudent(id){
+            axios.delete(`http://127.0.0.1:8000/api/students/${id}/delete`).then(res => {
+                alert(res.data.message)
+                this.getStudents()
+            }); 
+        },
     },
 }
 </script>

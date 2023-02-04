@@ -53,10 +53,9 @@ export default {
         }
     },
     methods: {
+        // Funcion para guardar registro
         saveStudent() {
-
             var mythis = this;
-
             axios.post('http://127.0.0.1:8000/api/students', this.model.student).then(res => {
                 console.log(res.data)
                 alert(res.data.message)
@@ -72,14 +71,6 @@ export default {
                     if(error.response.status == 422){
                         mythis.errorList = error.response.data.errors;
                     }
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                    // http.ClientRequest in node.js
-                    console.log(error.request);
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log('Error', error.message);
                 }
             });
         }
